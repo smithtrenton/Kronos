@@ -58,7 +58,7 @@ function SmartGetFieldString(const Parent: Integer; const Path: AnsiString): Str
 function SmartGetFieldInt(const Parent: Integer; const Path: AnsiString): Integer;
 function SmartGetFieldShort(const Parent: Integer; const Path: AnsiString): Integer;
 function SmartGetFieldByte(const Parent: Integer; const Path: AnsiString): Integer;
-function SmartGetFieldFloat(const Parent: Integer; const Path: AnsiString): Extended;
+function SmartGetFieldFloat(const Parent: Integer; const Path: AnsiString): Double;
 function SmartGetFieldDouble(const Parent: Integer; const Path: AnsiString): Extended;
 function SmartGetFieldBoolean(const Parent: Integer; const Path: AnsiString): Boolean;
 function SmartGetFieldLongH(const Parent: Integer; const Path: AnsiString): Integer;
@@ -77,7 +77,8 @@ function SmartGetFieldArrayLongH(const Parent: Integer; const Path: AnsiString; 
 function SmartGetFieldArrayLongL(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer;
 function SmartGetFieldArrayBoolean(const Parent: Integer; const Path: AnsiString; const Index: Integer): Boolean;
 function SmartGetFieldArrayByte(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer;
-function SmartGetFieldArrayShort(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer;
+function SmartGetFieldArrayShort(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer; overload;
+function SmartGetFieldArrayShort(const Parent: Integer; const Path: AnsiString): TIntArray; overload;
 function SmartGetFieldArrayChar(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer;
 
 function SmartGetFieldArray2DObject(const Parent: Integer; const Path: AnsiString; const x, y: Integer): Integer;
@@ -374,7 +375,7 @@ begin
   Result := SMART_Core.SmartGetFieldByte(Parent, PAnsiChar(Path));
 end;
 
-function SmartGetFieldFloat(const Parent: Integer; const Path: AnsiString): Extended;
+function SmartGetFieldFloat(const Parent: Integer; const Path: AnsiString): Double;
 begin
   Result := -2;
   if Parent < 0 then
@@ -555,12 +556,33 @@ begin
   Result := SMART_Core.SmartGetFieldArrayByte(Parent, PAnsiChar(Path), Index);
 end;
 
-function SmartGetFieldArrayShort(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer;
+function SmartGetFieldArrayShort(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer; overload;
 begin
   Result := -2;
   if Parent < 0 then
     Exit;
-  Result := SMART_Core.SmartGetFieldArrayByte(Parent, PAnsiChar(Path), Index);
+  Result := SMART_Core.SmartGetFieldArrayShort(Parent, PAnsiChar(Path), Index);
+end;
+
+function SmartGetFieldArrayShort(const Parent: Integer; const Path: AnsiString): TIntArray; overload;
+var
+  L, I: Integer;
+begin
+  SetLength(Result, 0);
+
+  if Parent < 0 then
+    Exit;
+
+  L := SmartGetFieldArraySize(Parent, Path, 1);
+  if(L < 1)then
+    Exit;
+  SetLength(Result, L);
+
+  if(L <= 0)then
+    Exit;
+
+  for I := 0 to L-1 do
+    Result[I] := SmartGetFieldArrayShort(Parent, Path, I);
 end;
 
 function SmartGetFieldArrayChar(const Parent: Integer; const Path: AnsiString; const Index: Integer): Integer;

@@ -59,4 +59,8 @@ begin
   MouseSpeed := Speed;
 end;
 
+finalization
+
+
+
 end.

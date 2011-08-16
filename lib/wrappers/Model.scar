@@ -1,0 +1,321 @@
+unit kronos.lib.wrappers.Model;
+
+interface
+
+  uses
+    kronos.smart.SMART,
+    kronos.lib.core.Hooks,
+    kronos.lib.core.Globals,
+    kronos.lib.core.Paint,
+    kronos.lib.wrappers.Renderable,
+    kronos.lib.wrappers.Character,
+    kronos.lib.wrappers.Polygon,
+    kronos.lib.methods.Tiles,
+    kronos.lib.methods.Calculations,
+    Types, Math, VCL_Graphics;
+
+  type
+    TModel = class
+      private
+        XPoints, YPoints, ZPoints: TIntArray;
+        Indices1, Indices2, Indices3: TIntArray;
+        NumVertices, NumFaces: Integer;
+      public
+        Renderable: TRenderable;
+        Obj: Integer;
+
+        constructor Create(Obj: Integer; Renderable: TRenderable);
+        destructor Destroy; override;
+
+        function GetXPoints: TIntArray;
+        function GetYPoints: TIntArray;
+        function GetZPoints: TIntArray;
+        function GetIndices1: TIntArray;
+        function GetIndices2: TIntArray;
+        function GetIndices3: TIntArray;
+
+        procedure Update;
+        function ProjectVertices: T2DIntArray;
+        function GetTriangles: array of TPolygon;
+        function ContainsPoint(P: TPoint): Boolean;
+        procedure Draw(Clear: Boolean; Color: Integer);
+        //function ContainsPoint(P: TPoint): Boolean;
+        //function GetCachedPoints: TPointArray;
+    end;
+
+implementation
+
+constructor TModel.Create(Obj: Integer; Renderable: TRenderable);
+begin
+  inherited Create;
+  UnfreedObjects.Add(Self);
+  Self.Obj := Obj;
+  //Self.Tile := LocTile;
+  Self.Renderable := Renderable;
+end;
+
+destructor TModel.Destroy; override;
+begin
+  if not SmartIsNull(Obj)then
+    SmartFreeObject(Obj);
+  UnfreedObjects.Remove(Self);
+  SetLength(XPoints, 0);
+  SetLength(YPoints, 0);
+  SetLength(ZPoints, 0);
+  SetLength(Indices1, 0);
+  SetLength(Indices2, 0);
+  SetLength(Indices3, 0);
+  inherited;
+end;
+
+function TModel.GetXPoints: TIntArray;
+begin
+  Result := SmartGetFieldArrayInt(Obj, hook_SDModel_GetPointsX);
+end;
+
+function TModel.GetYPoints: TIntArray;
+begin
+  Result := SmartGetFieldArrayInt(Obj, hook_SDModel_GetPointsY);
+end;
+
+function TModel.GetZPoints: TIntArray;
+begin
+  Result := SmartGetFieldArrayInt(Obj, hook_SDModel_GetPointsZ);
+end;
+
+function TModel.GetIndices1: TIntArray;
+begin
+  Result := SmartGetFieldArrayShort(Obj, hook_SDModel_GetIndices1);
+end;
+
+function TModel.GetIndices2: TIntArray;
+begin
+  Result := SmartGetFieldArrayShort(Obj, hook_SDModel_GetIndices2);
+end;
+
+function TModel.GetIndices3: TIntArray;
+begin
+  Result := SmartGetFieldArrayShort(Obj, hook_SDModel_GetIndices3);
+end;
+
+function IntArraysEqual(Arr1, Arr2: TIntArray): Boolean;
+var
+  I: Integer;
+begin
+  Result := False;
+  if(Length(Arr1) <> Length(Arr2))then
+    Exit;
+  for I := 0 to High(Arr1)do
+    if(Arr1[I] <> Arr2[I])then
+      Exit;
+  Result := True;
+end;
+
+procedure TModel.Update;
+var
+  I: Integer;
+  Theta, Sin, Cos, N1, N2: Integer;
+  NXPoints, NZPoints: TIntArray;
+  Neg: Boolean;
+begin
+  XPoints := GetXPoints;
+  YPoints := GetYPoints;
+  ZPoints := GetZPoints;
+  Indices1 := GetIndices1;
+  Indices2 := GetIndices2;
+  Indices3 := GetIndices3;
+  NumVertices := Min(Length(XPoints), Min(Length(YPoints), Length(ZPoints)));
+  NumFaces := Min(Length(Indices1), Min(Length(Indices2), Length(Indices3)));
+
+  if Assigned(Renderable) and (Renderable is TCharacter)then
+  begin
+    SetLength(NXPoints, NumVertices);
+    SetLength(NZPoints, NumVertices);
+
+    Theta := Renderable.GetOrientation and $3FFF;
+    Sin := SIN_TABLE[Theta];
+    Cos := COS_TABLE[Theta];
+
+    for I := 0 to NumVertices - 1 do
+    begin
+      N1 := ((XPoints[I] * Cos) + (ZPoints[I] * Sin));
+      N2 := ((ZPoints[I] * Cos) - (XPoints[I] * Sin));
+
+      Neg := N1 < 0;
+      N1 := Abs(N1) shr 15;          //Negative shr is broken right now.
+      if Neg then
+        N1 *= -1;
+
+      Neg := N2 < 0;
+      N2 := Abs(N2) shr 15;
+      if Neg then
+        N2 *= -1;
+
+      NXPoints[I] := N1;
+      NZPoints[I] := N2;
+    end;
+
+    SetLength(XPoints, 0);
+    SetLength(ZPoints, 0);
+    XPoints := NXPoints;
+    ZPoints := NZPoints;
+  end;
+
+  //Println('Number of Vertices: '+ToStr(NumVertices));
+  //Println('Number of Faces: '+ToStr(NumFaces));
+end;
+
+function TModel.ProjectVertices: T2DIntArray;
+var
+  LocX, LocY, TileHeight, I, X, Y: Integer;
+  VertexX, VertexY, VertexZ: Integer;
+  Z: Extended;
+begin
+  SetLength(Result, 0);
+
+  Update;
+
+  LocX := Renderable.GetLocalX;
+  LocY := Renderable.GetLocalY;
+
+  UpdateRenderInfo;
+
+  SetLength(Result, NumVertices);
+  TileHeight := GetTileHeight(Point(LocX shr 9, LocY shr 9));
+  for I := 0 to NumVertices - 1 do
+  begin
+    SetLength(Result[I], 3);
+    VertexX := XPoints[I] + LocX;
+    VertexY := YPoints[I] + TileHeight;
+    VertexZ := ZPoints[I] + LocY;
+
+    Z := RenderData.ZOff + Floor(RenderData.ZX * VertexX + RenderData.ZY * VertexY + RenderData.ZZ * VertexZ);
+    if(Z >= Render.ZMin) and (Z <= Render.ZMax)then
+    begin
+      X := Floor(Render.XScale * (Floor(RenderData.XOff) + Floor(RenderData.XX * VertexX +
+                 RenderData.XY * VertexY + RenderData.XZ * VertexZ)) / Z);
+      Y := Floor(Render.YScale * (Floor(RenderData.YOff) + Floor(RenderData.YX * VertexX +
+                 RenderData.YY * VertexY + RenderData.YZ * VertexZ)) / Z);
+      if ((X >= Render.XMin) and (X <= Render.XMax) and (Y >= Render.YMin) and (Y <= Render.YMax)) then
+      begin
+        Result[I][0] := Floor(X - Render.XMin) + 4;
+        Result[I][1] := Floor(Y - Render.YMin) + 4;
+        Result[I][2] := 1;
+      end else
+      begin
+        Result[I][0] := -1;
+        Result[I][1] := -1;
+        Result[I][2] := 0;
+      end;
+    end else
+    begin
+      Result[I][0] := -1;
+      Result[I][1] := -1;
+      Result[I][2] := 0;
+    end;
+  end;
+end;
+
+function TModel.GetTriangles: array of TPolygon;
+var
+  Points: T2DIntArray;
+  I, C, Index1, Index2, Index3: Integer;
+  Xs, Ys: TIntArray;
+  Triangles: array of TPolygon;
+begin
+  SetLength(Result, 0);
+  Points := ProjectVertices;
+  if(Length(Points) < 1)then
+    Exit;
+  SetLength(Triangles, NumFaces);
+  SetLength(Xs, 3);
+  SetLength(Ys, 3);
+  C := 0;
+  for I := 0 to NumFaces - 1 do
+  begin
+    Index1 := Indices1[I];
+    Index2 := Indices2[I];
+    Index3 := Indices3[I];
+
+    Xs[0] := Points[Index1][0];
+    Ys[0] := Points[Index1][1];
+    Xs[1] := Points[Index2][0];
+    Ys[1] := Points[Index2][1];
+    Xs[2] := Points[Index3][0];
+    Ys[2] := Points[Index3][1];
+
+    try
+      if(Points[Index1][2] + Points[Index2][2] + Points[Index3][2] = 3)then
+        Triangles[C++] := TPolygon.Create(Xs, Ys, 3);
+    except
+      Println('**C: '+ToStr(C)+'**');
+      Println('**Result Length: '+ToStr(Length(Result))+'**');
+    end;
+  end;
+  SetLength(Result, C);
+  for I := 0 to C-1 do
+    Result[I] := Triangles[I];
+end;
+
+
+function TModel.ContainsPoint(P: TPoint): Boolean;
+var
+  I: Integer;
+  Triangles: array of TPolygon;
+begin
+  Result := False;
+  Triangles := GetTriangles;
+  if(Length(Triangles) < 1)then
+    Exit;
+  for I := 0 to High(Triangles)do
+  begin
+    if(Triangles[I].ContainsPoint(P))then
+    begin
+      Result := True;
+      Exit;
+    end;
+  end;
+end;
+
+procedure TModel.Draw(Clear: Boolean; Color: Integer);
+var
+  I, Index1, Index2, Index3: Integer;
+  X1, Y1, X2, Y2, X3, Y3: Integer;
+  Screen: T2DIntArray;
+  Canvas: TCanvas;
+begin
+  Screen := ProjectVertices;
+  if(Length(Screen) < 1)then
+    Exit;
+
+  Canvas := GetSmartCanvas;
+
+  if Clear then
+    ClearSMARTDebug;
+
+  Canvas.Pen.Color := Color;
+
+  for I := 0 to NumFaces - 1 do
+  begin
+    Index1 := Indices1[I];
+    Index2 := Indices2[I];
+    Index3 := Indices2[I];
+
+    X1 := Screen[Index1][0];
+    Y1 := Screen[Index1][1];
+    X2 := Screen[Index2][0];
+    Y2 := Screen[Index2][1];
+    X3 := Screen[Index3][0];
+    Y3 := Screen[Index3][1];
+
+    if(Screen[Index1][2] + Screen[Index2][2] + Screen[Index3][2] = 3)then
+    begin
+      Canvas.MoveTo(X1, Y1);
+      Canvas.LineTo(X2, Y2);
+      Canvas.LineTo(X3, Y3);
+      Canvas.LineTo(X1, Y1);
+    end;
+  end;
+end;
+
+end.
