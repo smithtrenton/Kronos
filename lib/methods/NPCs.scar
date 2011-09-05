@@ -11,8 +11,12 @@ interface
     kronos.lib.methods.Calculations,
     Types;
 
-  function GetNPCs(Names: TStrArray): TNPCArray;
-  function GetNPC(Name: String): TNPC;
+  function GetNPCs(Names: TStrArray): TNPCArray; overload;
+  function GetNPC(Name: String): TNPC; overload;
+  function GetNPCs(IDs: TIntArray): TNPCArray; overload;
+  function GetNPC(ID: Integer): TNPC; overload;
+  function GetNPCsAt(Tile: TTile): TNPCArray;
+  function GetNPCAt(Tile: TTile): TNPC;
 
 implementation
 
@@ -85,7 +89,7 @@ the array from the closest to the farthest.
   by Drags111
 
 *)
-function GetNPCs(Names: TStrArray): TNPCArray;
+function GetNPCs(Names: TStrArray): TNPCArray; overload;
 var
   NumNPCs, H, C, I: Integer;
   TheNPCNode: Integer;
@@ -135,13 +139,183 @@ you.
   by Drags111
 
 *)
-function GetNPC(Name: String): TNPC;
+function GetNPC(Name: String): TNPC; overload;
+var
+  NPCs: TNPCArray;
+  N: TStrArray;
+  I: Integer;
+begin
+  Result := nil;
+  N := [Name];
+  NPCs := GetNPCs(N);
+  if(Length(NPCs) < 1)then
+    Exit;
+
+  Result := NPCs[0];
+
+  if(Length(NPCs) = 1)then
+    Exit;
+
+  for I := 1 to High(NPCs)do
+    NPCs[I].Free;
+end;
+
+(*
+GetNPCs
+~~~~~~~
+
+.. code-block:: pascal
+
+    function GetNPCs(IDs: TIntArray): TNPCArray;
+
+Returns a TNPCArray of all the npcs that contain one of the IDs. Then sorts
+the array from the closest to the farthest.
+
+.. note::
+
+  by Drags111
+
+*)
+function GetNPCs(IDs: TIntArray): TNPCArray; overload;
+var
+  NumNPCs, H, C, I: Integer;
+  TheNPCNode: Integer;
+  Temp: TNPC;
+  NPCs: TNPCArray;
+begin
+  SetLength(Result, 0);
+  NumNPCs := GetNPCCount;
+  if (NumNPCs < 1) then
+    Exit;
+
+  C := 0;
+  SetLength(NPCs, NumNPCs);
+  H := NumNPCs-1;
+  for I := 0 to H do
+  begin
+    TheNPCNode := SmartGetFieldArrayObject(0, hook_static_NPCNodes, I);
+    Temp := TNPC.Create(SmartGetFieldObject(TheNPCNode, hook_npcnode_GetNPC), NPC);
+    SmartFreeObject(TheNPCNode);
+
+    if not InIntArray(IDs, Temp.GetID)then
+    begin
+      Temp.Free;
+      Continue;
+    end;
+
+    NPCs[C] := Temp;
+    Inc(C);
+  end;
+  SetLength(NPCs, C);
+  Result := SortNPCs(NPCs);
+end;
+
+(*
+GetNPC
+~~~~~~
+
+.. code-block:: pascal
+
+    function GetNPC(ID: Integer): TNPC;
+
+Returns a TNPC of the npc that contains the ID. Returns the closest one to
+you.
+
+.. note::
+
+  by Drags111
+
+*)
+function GetNPC(ID: Integer): TNPC; overload;
 var
   NPCs: TNPCArray;
   I: Integer;
 begin
   Result := nil;
-  NPCs := GetNPCs([Name]);
+  NPCs := GetNPCs([ID]);
+  if(Length(NPCs) < 1)then
+    Exit;
+
+  Result := NPCs[0];
+
+  if(Length(NPCs) = 1)then
+    Exit;
+
+  for I := 1 to High(NPCs)do
+    NPCs[I].Free;
+end;
+
+(*
+GetNPCsAt
+~~~~~~
+
+.. code-block:: pascal
+
+    function GetNPCsAt(Tile: TTile): TNPCArray;
+
+Returns TNPCArray of all the npcs on the Tile.
+
+.. note::
+
+  by mormonman
+
+*)
+function GetNPCsAt(Tile: TTile): TNPCArray;
+var
+  NumNPCs, H, C, I: Integer;
+  TheNPCNode: Integer;
+  Temp: TNPC;
+  NPCs: TNPCArray;
+begin
+  SetLength(Result, 0);
+  NumNPCs := GetNPCCount;
+  if (NumNPCs < 1) then
+    Exit;
+
+  C := 0;
+  SetLength(NPCs, NumNPCs);
+  H := NumNPCs-1;
+  for I := 0 to H do
+  begin
+    TheNPCNode := SmartGetFieldArrayObject(0, hook_static_NPCNodes, I);
+    Temp := TNPC.Create(SmartGetFieldObject(TheNPCNode, hook_npcnode_GetNPC), NPC);
+    SmartFreeObject(TheNPCNode);
+
+    if (Tile <> Temp.GetPos) then
+    begin
+      Temp.Free;
+      Continue;
+    end;
+
+    NPCs[C] := Temp;
+    Inc(C);
+  end;
+  SetLength(NPCs, C);
+  Result := NPCs;
+end;
+
+(*
+GetNPCAt
+~~~~~~
+
+.. code-block:: pascal
+
+    function GetNPCAt(Tile: TTile): TNPCArray;
+
+Returns a TNPC of the first npc on the Tile.
+
+.. note::
+
+  by mormonman
+
+*)
+function GetNPCAt(Tile: TTile): TNPC;
+var
+  NPCs: TNPCArray;
+  I: Integer;
+begin
+  Result := nil;
+  NPCs := GetNPCsAt(Tile);
   if(Length(NPCs) < 1)then
     Exit;
 

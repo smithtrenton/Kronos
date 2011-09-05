@@ -254,7 +254,7 @@ function TNPCDef.GetParentIDs: TIntArray;
 var
   Setting: Integer;
 begin
-  Result := SmartGetFieldArrayInt(Obj, hook_NPCDef_GetParentIDs);
+  Result := SmartGetFieldArrayInt(Obj, hook_NPCDef_GetChildrenIDs);
   Setting := GetSettingIndex;
 end;
 

@@ -22,6 +22,8 @@ interface
     kronos.lib.core.Globals;
 
   type
+    TClickType = (MODEL, TILE);
+
     TRenderable = class abstract
       public
         Obj: Integer;
@@ -35,6 +37,7 @@ interface
         function GetPlane: Integer;
 
         function GetOrientation: Integer; virtual; abstract;
+        function Click(ClickType: TClickType): Boolean; virtual; abstract;
     end;
 
 implementation

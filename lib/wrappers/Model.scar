@@ -38,6 +38,7 @@ interface
         function ProjectVertices: T2DIntArray;
         function GetTriangles: array of TPolygon;
         function ContainsPoint(P: TPoint): Boolean;
+        function GetCentralPoint: TPoint;
         procedure Draw(Clear: Boolean; Color: Integer);
         //function ContainsPoint(P: TPoint): Boolean;
         //function GetCachedPoints: TPointArray;
@@ -275,6 +276,51 @@ begin
       Exit;
     end;
   end;
+end;
+
+function TModel.GetCentralPoint: TPoint;
+var
+  X, Y, Total, I: Integer;
+  Dist, Dist2: Extended;
+  Points: T2DIntArray;
+  Central, P, CurCentral: TPoint;
+begin
+  Result := Point(-1, -1);
+  X := 0;
+  Y := 0;
+  Total := 0;
+  Points := ProjectVertices;
+  for I := 0 to NumVertices - 1 do
+  begin
+    if(Points[I][2] = 1)then
+    begin
+      X += Points[I][0];
+      Y += Points[I][1];
+      Total++;
+    end;
+  end;
+
+  Central := Point(X div Total, Y div Total);
+  Dist := 20000.0;
+
+  for I := 0 to NumVertices - 1 do
+  begin
+    if(Points[I][2] = 1)then
+    begin
+      P.X := Points[I][0];
+      P.Y := Points[I][1];
+      if not MSBox.InBox(P)then
+        Continue;
+      Dist2 := Sqrt(Sqr(Central.X - P.X) + Sqr(Central.Y - P.Y));
+      if(Dist2 < Dist)then
+      begin
+        CurCentral := P;
+        Dist := Dist2;
+      end;
+    end;
+  end;
+
+  Result := CurCentral;
 end;
 
 procedure TModel.Draw(Clear: Boolean; Color: Integer);

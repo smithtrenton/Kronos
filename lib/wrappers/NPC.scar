@@ -13,6 +13,9 @@ interface
   uses
     kronos.smart.SMART,
     kronos.lib.core.Hooks,
+    kronos.lib.core.Globals,
+    kronos.lib.methods.Mouse,
+    kronos.lib.wrappers.Renderable,
     kronos.lib.wrappers.Character,
     kronos.lib.wrappers.NPCDef,
     kronos.lib.wrappers.Model,
@@ -35,6 +38,7 @@ interface
         function GetNPCDef: TNPCDef;
         function Exists: Boolean;
         function GetModel: TModel;
+        function Click(ClickType: TClickType): Boolean; override;
     end;
     TNPCArray = array of TNPC;
 
@@ -256,6 +260,26 @@ begin
     CachedModel := TModel.Create(Model, Self);
 
   Result := CachedModel;
+end;
+
+function TNPC.Click(ClickType: TClickType): Boolean; override;
+var
+  P: TPoint;
+  M: TModel;
+begin
+  Result := False;
+  case ClickType of
+    MODEL: begin
+      M := GetModel;
+      if Assigned(M)then
+        P := M.GetCentralPoint;
+    end;
+    else Exit;
+  end;
+  if not MSBox.InBox(P)then
+    Exit;
+  CMouse(P, 4, 4, True);
+  Result := True;
 end;
 
 (*

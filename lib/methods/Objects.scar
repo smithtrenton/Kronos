@@ -20,6 +20,11 @@ interface
 
   function GetObjectsAt(Tile: TTile): TRSObjectArray;
   function GetAllObjects: TRSObjectArray;
+  function GetObjects(IDs: TIntArray; MaxDist: Integer): TRSObjectArray; overload;
+  function GetObjects(ID, MaxDist: Integer): TRSObjectArray; overload;
+  function GetObject(IDs: TIntArray; MaxDist: Integer): TRSObject; overload;
+  function GetObject(ID, MaxDist: Integer): TRSObject; overload;
+
 
 implementation
 
@@ -152,6 +157,68 @@ begin
         Result[C++] := TempObjs[I];
     end;
   SetLength(Result, C);
+end;
+
+function GetObjects(IDs: TIntArray; MaxDist: Integer): TRSObjectArray;
+var
+  Tiles: TPointArray;
+  i, h, C: Integer;
+  TempObjs: TRSObjectArray;
+begin
+  SetLength(Result, 0);
+  Tiles := SortedCircleTPA(GetMyLocPos, MaxDist);
+  if Length(Tiles) < 0 then
+    Exit;
+
+  SetLength(Result, 20000);
+  C := 0;
+  for i := 0 to High(Tiles) do
+  begin
+    TempObjs := GetObjectsAt(Tiles[i]);
+    if(Length(TempObjs) < 1)then
+        Continue;
+      for h := 0 to High(TempObjs)do
+      begin
+        if not InIntArray(IDs, TempObjs[h].GetID) then
+          TempObjs[h].Free
+        else Result[C++] := TempObjs[h];
+      end;
+  end;
+  SetLength(Result, C);
+end;
+
+function GetObjects(ID, MaxDist: Integer): TRSObjectArray;
+var
+  IntArr: TIntArray;
+begin
+  IntArr := [ID];
+  Result := GetObjects(IntArr, MaxDist);
+end;
+
+function GetObject(IDs: TIntArray; MaxDist: Integer): TRSObject;
+var
+  Objs: TRSObjectArray;
+begin
+  Result := nil;
+  Objs := GetObjects(IDs, MaxDist);
+  if(Length(Objs) < 1)then
+    Exit;
+
+  Result := Objs[0];
+
+  if(Length(Objs) = 1)then
+    Exit;
+
+  for I := 1 to High(Objs)do
+    Objs[I].Free;
+end;
+
+function GetObject(ID, MaxDist: Integer): TRSObject;
+var
+  IntArr: TIntArray;
+begin
+  IntArr := [ID];
+  Result := GetObject(IntArr, MaxDist);
 end;
 
 end.

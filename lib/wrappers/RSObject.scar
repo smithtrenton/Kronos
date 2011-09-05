@@ -368,7 +368,7 @@ begin
   Result := nil;
 
   ObjDefLoader := SmartGetFieldObject(0, hook_static_getObjectDefLoader);
-  MRUNodes := SmartGetfieldObject(ObjDefLoader, hook_objectdefloader_getMRUNodes);
+  MRUNodes := SmartGetfieldObject(ObjDefLoader, hook_objectdefloader_Composites);
   NodeCache := TNodeCache.Create(SmartGetfieldObject(MRUNodes, hook_mrunodes_getNodeCache));
   SmartFreeObject([MRUNodes, ObjDefLoader]);
 
