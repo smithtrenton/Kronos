@@ -1,0 +1,64 @@
+unit Circle;
+
+interface
+
+  uses
+  Methods,
+    Types;
+
+  type
+    TCircle = record
+      public
+        Radius: Integer;
+        Center: TPoint;
+
+        constructor Create(Center: TPoint; Radius: Integer);
+
+        function ContainsPoint(P: TPoint): Boolean;
+
+    end;
+
+implementation
+
+(*
+Create
+~~~~~~
+
+.. code-block:: pascal
+
+    constructor TCircle.Create(Center: TPoint; Radius: Integer);
+
+Initiates the circle variable with center point and radius.
+
+.. note::
+
+  by mormonman
+
+*)
+constructor TCircle.Create(Center: TPoint; Radius: Integer);
+begin
+  Self.Center := Center;
+  Self.Radius := Radius;
+end;
+
+(*
+ContainsPoint
+~~~~~~~~~~~~~
+
+.. code-block:: pascal
+
+    function TCircle.ContainsPoint(P: TPoint): Boolean;
+
+Returns true if the point given in the parameter is within the circle.
+
+.. note::
+
+  by mormonman
+
+*)
+function TCircle.ContainsPoint(P: TPoint): Boolean;
+begin
+  Result := Distance(P, Center) < Distance(P, Radius);
+end;
+
+end.

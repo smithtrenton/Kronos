@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.NPCDef;
+unit NPCDef;
 
 (*
 NPCDef
@@ -12,13 +12,13 @@ actions, models, etc.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.core.Globals,
-    kronos.lib.methods.Methods,
-    kronos.lib.methods.Calculations,
-    kronos.lib.wrappers.NodeCache,
-    kronos.lib.wrappers.Node,
+  SMART,
+  Hooks,
+  Globals,
+  Methods,
+  Calculations,
+  NodeCache,
+  Node,
     Types;
 
   type

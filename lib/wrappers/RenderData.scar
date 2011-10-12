@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.RenderData;
+unit RenderData;
 
 (*
 RenderData
@@ -12,8 +12,8 @@ the main screen, along with offsets.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks;
+  SMART,
+  Hooks;
 
   type
     TRenderData = record

@@ -1,4 +1,4 @@
-unit kronos.Kronos;
+unit Kronos;
 
 //----------------------------------------------------------------------------//
 //--                      Kronos Reflection Library                         --//
@@ -24,17 +24,21 @@ unit kronos.Kronos;
 //----------------------------------------------------------------------------//
 
 interface
+{$LIBRARY .\smart}
+{$LIBRARY .\lib\core}
+{$LIBRARY .\lib\wrappers}
+{$LIBRARY .\lib\methods}
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.core.Globals,
-    kronos.lib.wrappers.Renderable,
-    kronos.lib.wrappers.Node,
-    kronos.lib.wrappers.NodeCache,
-    kronos.lib.wrappers.NodeList,
-    kronos.lib.wrappers.RSObject,
-    kronos.lib.wrappers.NPCDef,
+    SMART,
+    Hooks,
+    Globals,
+    Renderable,
+    Node,
+    NodeCache,
+    NodeList,
+    RSObject,
+    NPCDef,
     Types;
 
   procedure SetupKronos;

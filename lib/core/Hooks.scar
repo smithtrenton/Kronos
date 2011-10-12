@@ -1,4 +1,4 @@
-unit kronos.lib.core.Hooks;
+unit Hooks;
 
 {*
 Hooks
@@ -11,358 +11,358 @@ Container for all of the hooks. Updated by pyroryan.
 interface
 
 	const
-		ClientVersion = 663;
+		ClientVersion = 667;
 		HookRev = 1;
 
 	{Static Hooks}
-		hook_static_LoginIndex = 'fia.e'; {I}
-		hook_static_CamPosX = 'fea.q'; {I}
-		hook_static_CamPosY = 'hea.x'; {I}
-		hook_static_CamPosZ = 'lp.l'; {I}
-		hook_static_CameraPitch = 'ha.i'; {I}
-		hook_static_CameraYaw = 'wca.e'; {I}
-		hook_static_GetChatLines = 'sla.g'; {[Ldw;}
-		hook_static_MyPlayer = 'ho.D'; {Loba;}
-		hook_static_BaseX = 'wk.Lb'; {I}
-		hook_static_BaseY = 'kl.a'; {I}
-		hook_static_MapAngle = 'uo.E'; {F}
-		hook_static_NPCIndexArray = 'db.f'; {[I}
-		hook_static_LoopCycle = 'ig.r'; {I}
-		hook_static_GetNPCNC = 'tg.N'; {Lgn;}
-		hook_static_GetItemDefLoader = 'hj.E'; {Lwo;}
-		hook_static_GetObjectDefLoader = 'cc.f'; {Lrka;}
-		hook_static_NPCNodes = 'cs.d'; {[Lcd;}
-		hook_static_GroundSettingsArray = 'aca.u'; {[[[B}
-		hook_static_LoadedPlane = 'wj.a'; {I}
-		hook_static_PlaneArray = 'ud.d'; {[Ls;}
-		hook_static_Toolkit = 'pi.i'; {Lha;}
-		hook_static_GetCollapsedMenuItems = 'rk.d'; {Lpda;}
-		hook_static_MenuNodeList = 'rq.a'; {Ltj;}
-		hook_static_MenuOpen = 'rk.e'; {Z}
-		hook_static_MenuOptionCount = 'it.g'; {I}
-		hook_static_MenuCollapsedOptionsCount = 'kha.b'; {I}
-		hook_static_MenuX = 'dma.k'; {I}
-		hook_static_MenuY = 'bw.v'; {I}
-		hook_static_MenuWidth = 'ula.a'; {I}
-		hook_static_MenuHeight = 'fo.m'; {I}
-		hook_static_MenuHeight2 = 'ma.C'; {I}
-		hook_static_MenuWidth2 = 'tja.p'; {I}
-		hook_static_MenuY2 = 'ww.p'; {I}
-		hook_static_MenuX2 = 'tha.l'; {I}
-		hook_static_IsMenuTabbed = 'lj.e'; {Z}
-		hook_static_GetInterfaces = 'mq.q'; {[[Lav;}
-		hook_static_ValidInterfaces = 'ii.f'; {[Z}
-		hook_static_GetInterfaceBoundsArray = 'rj.d'; {[Ljava/awt/Rectangle;}
-		hook_static_InterfaceDismissBounds = 'fw.a'; {[Z}
-		hook_static_InterfaceNC = 'fca.a'; {Lgn;}
-		hook_static_GetSettings = 'se.z'; {Lud;}
-		hook_static_GroundItemCache = 'bh.G'; {Lgn;}
-		hook_static_GetGroundDataArray = 'vf.e'; {[Ltq;}
-		hook_static_GetSkillExperiences = 'lm.w'; {[I}
-		hook_static_GetSkillLevels = 'jea.l'; {[I}
-		hook_static_GetSelfInteracting = 'sha.e'; {I}
-		hook_static_DestX = 'pf.f'; {I}
-		hook_static_DestY = 'pl.k'; {I}
-		hook_static_PlayerCount = 'rla.w'; {I}
-		hook_static_PlayerIndexArray = 'mv.e'; {[I}
-		hook_static_GetPlayers = 'vga.g'; {[Loba;}
-		hook_static_NPCCount = 'kk.d'; {I}
-		hook_static_GroundTiles = 'sha.j'; {[[[Lnt;}
-		hook_static_GetCrossHairColor = 'jba.i'; {I}
+		hook_static_LoginIndex = 'it.g'; {I}
+		hook_static_CamPosX = 'fea.h'; {I}
+		hook_static_CamPosY = 'dha.y'; {I}
+		hook_static_CamPosZ = 'lfa.g'; {I}
+		hook_static_CameraPitch = 'ss.f'; {I}
+		hook_static_CameraYaw = 'kda.d'; {I}
+		hook_static_GetChatLines = 'ph.D'; {[Lpa;}
+		hook_static_MyPlayer = 'rj.c'; {Lca;}
+		hook_static_BaseX = 'vs.o'; {I}
+		hook_static_BaseY = 'dl.k'; {I}
+		hook_static_MapAngle = 'ff.s'; {F}
+		hook_static_NPCIndexArray = 'dda.c'; {[I}
+		hook_static_LoopCycle = 'kj.d'; {I}
+		hook_static_GetNPCNC = 'aka.m'; {Lav;}
+		hook_static_GetItemDefLoader = 'ne.n'; {Les;}
+		hook_static_GetObjectDefLoader = 'ld.b'; {Lgea;}
+		hook_static_NPCNodes = 'sla.b'; {[Lqfa;}
+		hook_static_GroundSettingsArray = 'ip.D'; {[[[B}
+		hook_static_LoadedPlane = 'mh.B'; {I}
+		hook_static_PlaneArray = 'hl.n'; {[Ls;}
+		hook_static_Toolkit = 'fb.f'; {Lha;}
+		hook_static_GetCollapsedMenuItems = 'la.v'; {Ljga;}
+		hook_static_MenuNodeList = 'vu.f'; {Lsia;}
+		hook_static_MenuOpen = 'mk.c'; {Z}
+		hook_static_MenuOptionCount = 'sn.j'; {I}
+		hook_static_MenuCollapsedOptionsCount = 'bb.c'; {I}
+		hook_static_MenuX = 'cea.p'; {I}
+		hook_static_MenuY = 'client.wb'; {I}
+		hook_static_MenuWidth = 'vka.c'; {I}
+		hook_static_MenuHeight = 'mr.b'; {I}
+		hook_static_MenuX2 = 'vt.c'; {I}
+		hook_static_MenuY2 = 'pj.p'; {I}
+		hook_static_MenuWidth2 = 'cm.o'; {I}
+		hook_static_MenuHeight2 = 'as.g'; {I}
+		hook_static_IsMenuTabbed = 'hfa.r'; {Z}
+		hook_static_GetInterfaces = 'of.z'; {[[Lhda;}
+		hook_static_ValidInterfaces = 'ec.G'; {[Z}
+		hook_static_GetInterfaceBoundsArray = 'tia.S'; {[Ljava/awt/Rectangle;}
+		hook_static_InterfaceDismissBounds = 'lia.b'; {[Z}
+		hook_static_InterfaceNC = 're.n'; {Lav;}
+		hook_static_GetSettings = 'bca.e'; {Lqga;}
+		hook_static_GroundItemCache = 'pla.i'; {Lav;}
+		hook_static_GetGroundDataArray = 'sca.d'; {[Leq;}
+		hook_static_GetSkillExperiences = 'hga.A'; {[I}
+		hook_static_GetSkillLevels = 'sf.h'; {[I}
+		hook_static_GetSelfInteracting = 'jt.g'; {I}
+		hook_static_DestX = 'vga.j'; {I}
+		hook_static_DestY = 'gka.n'; {I}
+		hook_static_PlayerCount = 'km.a'; {I}
+		hook_static_PlayerIndexArray = 'gia.o'; {[I}
+		hook_static_GetPlayers = 'tl.f'; {[Lca;}
+		hook_static_NPCCount = 'mda.H'; {I}
+		hook_static_GroundTiles = 'kja.e'; {[[[Lpha;}
+		hook_static_GetCrossHairColor = 'tia.R'; {I}
 
 	{Class SDModel}
-		class_SDModel = 'hma';
-		hook_SDModel_GetIndices1 = 'J'; {[S}
-		hook_SDModel_GetIndices2 = 'ub'; {[S}
-		hook_SDModel_GetIndices3 = 'y'; {[S}
-		hook_SDModel_GetPointsX = 'sb'; {[I}
-		hook_SDModel_GetPointsY = 'vb'; {[I}
-		hook_SDModel_GetPointsZ = 'Mb'; {[I}
+		class_SDModel = 'rs';
+		hook_SDModel_GetIndices1 = 'G'; {[S}
+		hook_SDModel_GetIndices2 = 'lb'; {[S}
+		hook_SDModel_GetIndices3 = 'E'; {[S}
+		hook_SDModel_GetPointsX = 'xb'; {[I}
+		hook_SDModel_GetPointsY = 'u'; {[I}
+		hook_SDModel_GetPointsZ = 'X'; {[I}
 
 	{Class ChatLine}
-		class_ChatLine = 'dw';
-		hook_ChatLine_GetName = 'c'; {Ljava/lang/String;}
-		hook_ChatLine_GetMessage = 'a'; {Ljava/lang/String;}
+		class_ChatLine = 'pa';
+		hook_ChatLine_GetName = 'd'; {Ljava/lang/String;}
+		hook_ChatLine_GetMessage = 'e'; {Ljava/lang/String;}
 		hook_ChatLine_GetType = 'h'; {I}
 
 	{Class Animable}
-		class_Animable = 'bla';
-		hook_Animable_PixelX = 'i'; {I}
-		hook_Animable_PixelY = 'q'; {I}
-		hook_Animable_Plane = 'p'; {B}
+		class_Animable = 'eo';
+		hook_Animable_PixelX = 'f'; {I}
+		hook_Animable_PixelY = 'v'; {I}
+		hook_Animable_Plane = 'j'; {B}
 
 	{Class Player}
-		class_Player = 'oba';
-		hook_Player_GetLevel = 'hd'; {I}
-		hook_Player_GetName = 'Vc'; {Ljava/lang/String;}
-		hook_Player_GetTeam = 'ed'; {I}
-		hook_Player_PlayerDef = 'Sc'; {Lmaa;}
+		class_Player = 'ca';
+		hook_Player_GetTeam = 'rd'; {I}
+		hook_Player_GetLevel = 'Fd'; {I}
+		hook_Player_GetName = 'xd'; {Ljava/lang/String;}
+		hook_Player_PlayerDef = 'Mc'; {Lju;}
 
 	{Class Character}
-		class_Character = 'wka';
-		hook_Character_getHeadMessage = 'oc'; {Ljd;}
-		hook_Character_Motion = 'lc'; {I}
-		hook_Character_AnimationQueue = 'jb'; {[I}
-		hook_Character_Animation = 'Fb'; {Ljs;}
-		hook_Character_WalkQueueX = 'wc'; {[I}
-		hook_Character_WalkQueueY = 'lb'; {[I}
-		hook_Character_GetHeight = 'bc'; {I}
-		hook_Character_Orientation = 'sb'; {I}
-		hook_Character_LoopCycleStatus = 'Dc'; {I}
-		hook_Character_HPRatio = 'Fc'; {I}
-		hook_Character_GetInteracting = 'ib'; {I}
+		class_Character = 'cg';
+		hook_Character_getHeadMessage = 'Pb'; {Ldj;}
+		hook_Character_AnimationQueue = 'zc'; {[I}
+		hook_Character_Animation = 'Ab'; {Lgu;}
+		hook_Character_Motion = 'ub'; {I}
+		hook_Character_WalkQueueX = 'L'; {[I}
+		hook_Character_WalkQueueY = 'Lb'; {[I}
+		hook_Character_GetHeight = 'N'; {I}
+		hook_Character_Orientation = 'jc'; {I}
+		hook_Character_LoopCycleStatus = 'Db'; {I}
+		hook_Character_HPRatio = 'qb'; {I}
+		hook_Character_GetInteracting = 'bb'; {I}
 
 	{Class AnimableNode}
-		class_AnimableNode = 'sla';
-		hook_AnimableNode_GetAnimable = 'f'; {Lqfa;}
-		hook_AnimableNode_GetNext = 'b'; {Lsla;}
-
-	{Class AnimableEntity}
-		class_AnimableEntity = 'qfa';
-		hook_AnimableEntity_GetAreaX1 = 'D'; {S}
-		hook_AnimableEntity_GetAreaX2 = 'x'; {S}
-		hook_AnimableEntity_GetAreaY1 = 'I'; {S}
-		hook_AnimableEntity_GetAreaY2 = 'E'; {S}
+		class_AnimableNode = 'pba';
+		hook_AnimableNode_GetAnimable = 'e'; {Lqf;}
+		hook_AnimableNode_GetNext = 'a'; {Lpba;}
 
 	{Class HeadMessage}
-		class_HeadMessage = 'jd';
-		hook_HeadMessage_GetText = 'h'; {Ljava/lang/String;}
+		class_HeadMessage = 'dj';
+		hook_HeadMessage_GetText = 'm'; {Ljava/lang/String;}
+
+	{Class AnimableEntity}
+		class_AnimableEntity = 'qf';
+		hook_AnimableEntity_GetAreaX1 = 'A'; {S}
+		hook_AnimableEntity_GetAreaX2 = 'w'; {S}
+		hook_AnimableEntity_GetAreaY1 = 'y'; {S}
+		hook_AnimableEntity_GetAreaY2 = 'E'; {S}
 
 	{Class PlayerDef}
-		class_PlayerDef = 'maa';
-		hook_PlayerDef_GetEquipment = 'i'; {[I}
+		class_PlayerDef = 'ju';
+		hook_PlayerDef_GetEquipment = 'o'; {[I}
 
 	{Class NodeCache}
-		class_NodeCache = 'gn';
-		hook_NodeCache_GetNodes = 'h'; {[Lan;}
+		class_NodeCache = 'av';
+		hook_NodeCache_GetNodes = 'e'; {[Lie;}
 
 	{Class Item}
-		class_Item = 'tha';
-		hook_Item_GetID = 'j'; {I}
-		hook_Item_GetStack = 'm'; {I}
+		class_Item = 'cv';
+		hook_Item_GetID = 'o'; {I}
+		hook_Item_GetStack = 'q'; {I}
 
 	{Class NodeListCache}
-		class_NodeListCache = 'eja';
-		hook_NodeListCache_GetNodeList = 'u'; {Ltj;}
+		class_NodeListCache = 'dq';
+		hook_NodeListCache_GetNodeList = 'n'; {Lsia;}
 
 	{Class NodeList}
-		class_NodeList = 'tj';
-		hook_NodeList_Current = 'q'; {Lan;}
-		hook_NodeList_Head = 'd'; {Lan;}
+		class_NodeList = 'sia';
+		hook_NodeList_Current = 'e'; {Lie;}
+		hook_NodeList_Head = 'x'; {Lie;}
 
 	{Class Node}
-		class_Node = 'an';
-		hook_Node_Next = 'd'; {Lan;}
-		hook_Node_Previous = 'a'; {Lan;}
-		hook_Node_GetID = 'g'; {J}
+		class_Node = 'ie';
+		hook_Node_Next = 'i'; {Lie;}
+		hook_Node_Previous = 'c'; {Lie;}
+		hook_Node_GetID = 'f'; {J}
 
 	{Class ItemDefLoader}
-		class_ItemDefLoader = 'wo';
-		hook_ItemDefLoader_GetMRUNodes = 't'; {Lsi;}
+		class_ItemDefLoader = 'es';
+		hook_ItemDefLoader_GetMRUNodes = 'o'; {Ldla;}
 
 	{Class ItemDef}
-		class_ItemDef = 'eh';
-		hook_ItemDef_GetLoader = 'eb'; {Lwo;}
-		hook_ItemDef_GetActions = 'b'; {[Ljava/lang/String;}
-		hook_ItemDef_GetGroundActions = 'Bb'; {[Ljava/lang/String;}
+		class_ItemDef = 'vfa';
+		hook_ItemDef_GetLoader = 'j'; {Les;}
+		hook_ItemDef_GetGroundActions = 'G'; {[Ljava/lang/String;}
+		hook_ItemDef_GetActions = 'ib'; {[Ljava/lang/String;}
 
 	{Class MRUNodes}
-		class_MRUNodes = 'si';
-		hook_MRUNodes_GetNodeCache = 'r'; {Lgn;}
+		class_MRUNodes = 'dla';
+		hook_MRUNodes_GetNodeCache = 'r'; {Lav;}
 
 	{Class ObjectDefLoader}
-		class_ObjectDefLoader = 'rka';
-		hook_ObjectDefLoader_ModelRef = 'c'; {Lsi;}
-		hook_ObjectDefLoader_Composites = 'm'; {Lsi;}
+		class_ObjectDefLoader = 'gea';
+		hook_ObjectDefLoader_ModelRef = 'q'; {Ldla;}
+		hook_ObjectDefLoader_Composites = 'l'; {Ldla;}
 
 	{Class ObjectDef}
-		class_ObjectDef = 'hca';
-		hook_ObjectDef_GetLoader = 'Fb'; {Lrka;}
-		hook_ObjectDef_GetActions = 'tb'; {[Ljava/lang/String;}
-		hook_ObjectDef_GetName = 'W'; {Ljava/lang/String;}
-		hook_ObjectDef_GetChildrenIDs = 'T'; {[I}
+		class_ObjectDef = 'c';
+		hook_ObjectDef_GetLoader = 'S'; {Lgea;}
+		hook_ObjectDef_GetActions = 'Bb'; {[Ljava/lang/String;}
+		hook_ObjectDef_GetName = 'qb'; {Ljava/lang/String;}
+		hook_ObjectDef_GetChildrenIDs = 'H'; {[I}
 
 	{Class NPC}
-		class_NPC = 'gja';
-		hook_NPC_NPCDef = 'jd'; {Lat;}
-		hook_NPC_GetLevel = 'Nc'; {I}
+		class_NPC = 'wj';
+		hook_NPC_NPCDef = 'Yc'; {Lo;}
+		hook_NPC_GetLevel = 'Sc'; {I}
 
 	{Class NPCDef}
-		class_NPCDef = 'at';
-		hook_NPCDef_GetName = 'D'; {Ljava/lang/String;}
-		hook_NPCDef_GetActions = 'ob'; {[Ljava/lang/String;}
-		hook_NPCDef_GetLoader = 'db'; {Leba;}
-		hook_NPCDef_GetLevel = 'A'; {I}
-		hook_NPCDef_GetID = 'R'; {I}
-		hook_NPCDef_GetChildrenIDs = 'O'; {[I}
-		hook_NPCDef_GetSettingIndex = 'b'; {I}
+		class_NPCDef = 'o';
+		hook_NPCDef_GetName = 'i'; {Ljava/lang/String;}
+		hook_NPCDef_GetActions = 'b'; {[Ljava/lang/String;}
+		hook_NPCDef_GetLoader = 'A'; {Lql;}
+		hook_NPCDef_GetLevel = 'm'; {I}
+		hook_NPCDef_GetID = 'N'; {I}
+		hook_NPCDef_GetChildrenIDs = 'B'; {[I}
+		hook_NPCDef_GetSettingIndex = 'S'; {I}
 
 	{Class NPCDefLoader}
-		class_NPCDefLoader = 'eba';
-		hook_NPCDefLoader_ModelRef = 'i'; {Lsi;}
-		hook_NPCDefLoader_Composites = 'p'; {Lsi;}
+		class_NPCDefLoader = 'ql';
+		hook_NPCDefLoader_ModelRef = 'i'; {Ldla;}
+		hook_NPCDefLoader_Composites = 'j'; {Ldla;}
 
 	{Class NPCNode}
-		class_NPCNode = 'cd';
-		hook_NPCNode_GetNPC = 'n'; {Lgja;}
+		class_NPCNode = 'qfa';
+		hook_NPCNode_GetNPC = 'l'; {Lwj;}
 
 	{Class SDPlane}
 		class_SDPlane = 's';
-		hook_SDPlane_TileHeights = 'l'; {[[I}
+		hook_SDPlane_TileHeights = 'i'; {[[I}
 
 	{Class GraphicsToolkit}
 		class_GraphicsToolkit = 'ha';
-		hook_GraphicsToolkit_GetIndex = 'd'; {I}
+		hook_GraphicsToolkit_GetIndex = 'b'; {I}
 
 	{Class SDViewport}
-		class_SDViewport = 'nm';
-		hook_SDViewport_XOff = 'i'; {F}
-		hook_SDViewport_XX = 'C'; {F}
-		hook_SDViewport_XY = 'g'; {F}
-		hook_SDViewport_XZ = 'o'; {F}
-		hook_SDViewport_YOff = 'p'; {F}
-		hook_SDViewport_YX = 'I'; {F}
-		hook_SDViewport_YY = 'n'; {F}
-		hook_SDViewport_YZ = 'z'; {F}
-		hook_SDViewport_ZOff = 'B'; {F}
-		hook_SDViewport_ZX = 'l'; {F}
-		hook_SDViewport_ZY = 'K'; {F}
-		hook_SDViewport_ZZ = 'x'; {F}
+		class_SDViewport = 'eaa';
+		hook_SDViewport_XOff = 'E'; {F}
+		hook_SDViewport_XX = 'I'; {F}
+		hook_SDViewport_XY = 'e'; {F}
+		hook_SDViewport_XZ = 'H'; {F}
+		hook_SDViewport_YOff = 'm'; {F}
+		hook_SDViewport_YX = 'r'; {F}
+		hook_SDViewport_YY = 'l'; {F}
+		hook_SDViewport_YZ = 'y'; {F}
+		hook_SDViewport_ZOff = 'F'; {F}
+		hook_SDViewport_ZX = 'A'; {F}
+		hook_SDViewport_ZY = 'q'; {F}
+		hook_SDViewport_ZZ = 't'; {F}
 
 	{Class SDToolkit}
-		class_SDToolkit = 'rea';
-		hook_SDToolkit_Viewport = 'N'; {Lnm;}
-		hook_SDToolkit_XMin = 'O'; {I}
-		hook_SDToolkit_XMax = 'A'; {I}
-		hook_SDToolkit_YMin = 'G'; {I}
-		hook_SDToolkit_YMax = 'M'; {I}
-		hook_SDToolkit_ZMin = 'pb'; {I}
-		hook_SDToolkit_ZMax = 'B'; {I}
-		hook_SDToolkit_XScale = 'R'; {I}
-		hook_SDToolkit_YScale = 'rb'; {I}
+		class_SDToolkit = 'iaa';
+		hook_SDToolkit_Viewport = 'db'; {Leaa;}
+    hook_SDToolkit_XMin = 'E'; {I}
+    hook_SDToolkit_XMax = 'x'; {I}
+    hook_SDToolkit_YMin = 'Y'; {I}
+    hook_SDToolkit_YMax = 'ib'; {I}
+    hook_SDToolkit_ZMin = 'X'; {I}
+    hook_SDToolkit_ZMax = 'B'; {I}
+    hook_SDToolkit_XScale = 'ob'; {I}
+    hook_SDToolkit_YScale = 'C'; {I}
 
-	{Class MenuGroupNode}
-		class_MenuGroupNode = 'q';
-		hook_MenuGroupNode_GetNodeSubListItems = 'z'; {Lpda;}
+  {Class MenuGroupNode}
+    class_MenuGroupNode = 'cba';
+    hook_MenuGroupNode_GetNodeSubListItems = 'A'; {Ljga;}
 
-	{Class NodeSubList}
-		class_NodeSubList = 'pda';
-		hook_NodeSubList_GetHead = 'i'; {Lffa;}
+  {Class NodeSubList}
+    class_NodeSubList = 'jga';
+    hook_NodeSubList_GetHead = 'h'; {Lcm;}
 
-	{Class NodeSub}
-		class_NodeSub = 'ffa';
-		hook_NodeSub_Next = 'r'; {Lffa;}
+  {Class NodeSub}
+    class_NodeSub = 'cm';
+    hook_NodeSub_Next = 'l'; {Lcm;}
 
-	{Class Menu}
-		class_Menu = 'ej';
-		hook_Menu_Action = 'y'; {Ljava/lang/String;}
-		hook_Menu_Option = 'N'; {Ljava/lang/String;}
+  {Class Menu}
+    class_Menu = 'pg';
+    hook_Menu_Action = 'u'; {Ljava/lang/String;}
+    hook_Menu_Option = 'w'; {Ljava/lang/String;}
 
-	{Class Interface}
-		class_Interface = 'av';
-		hook_Interface_GetTextColor = 'ad'; {I}
-		hook_Interface_GetModelZoom = 'Ec'; {I}
-		hook_Interface_GetModelID = 'a'; {I}
-		hook_Interface_GetX = 'ub'; {I}
-		hook_Interface_GetY = 'Ub'; {I}
-		hook_Interface_GetWidth = 'fb'; {I}
-		hook_Interface_GetHeight = 'tc'; {I}
-		hook_Interface_IsHidden = 'yd'; {Z}
-		hook_Interface_GetParentID = 'Gb'; {I}
-		hook_Interface_GetID = 'zd'; {I}
-		hook_Interface_GetComponentID = 'q'; {I}
-		hook_Interface_GetComponentStackSize = 'mb'; {I}
-		hook_Interface_GetActions = 'pc'; {[Ljava/lang/String;}
-		hook_Interface_GetComponentName = 'W'; {Ljava/lang/String;}
-		hook_Interface_GetText = 'Oc'; {Ljava/lang/String;}
-		hook_Interface_GetTextureID = 'Cb'; {I}
-		hook_Interface_GetChildren = 'tb'; {[Lav;}
-		hook_Interface_GetBoundsArrayIndex = 'pb'; {I}
-		hook_Interface_GetHorizontalScrollBarSize = 'Yc'; {I}
-		hook_Interface_GetVerticalScrollBarSize = 'b'; {I}
-		hook_Interface_GetHorizontalScrollBarPosition = 'rd'; {I}
-		hook_Interface_GetHorizontalScrollBarThumbSize = 'fb'; {I}
-		hook_Interface_GetVerticalScrollBarPosition = 'ac'; {I}
-		hook_Interface_GetVerticalScrollBarThumbSize = 'tc'; {I}
+  {Class Interface}
+    class_Interface = 'hda';
+    hook_Interface_GetTextColor = 'l'; {I}
+    hook_Interface_GetModelZoom = 'wb'; {I}
+    hook_Interface_GetModelID = 'Mb'; {I}
+    hook_Interface_GetX = 'n'; {I}
+    hook_Interface_GetY = 'ab'; {I}
+    hook_Interface_GetWidth = 'A'; {I}
+    hook_Interface_GetHeight = 'Vc'; {I}
+    hook_Interface_IsHidden = 'fc'; {Z}
+    hook_Interface_GetParentID = 'zb'; {I}
+    hook_Interface_GetID = 'vb'; {I}
+    hook_Interface_GetComponentID = 'b'; {I}
+    hook_Interface_GetComponentStackSize = 'ub'; {I}
+    hook_Interface_GetActions = 'Jc'; {[Ljava/lang/String;}
+    hook_Interface_GetComponentName = 'Lb'; {Ljava/lang/String;}
+    hook_Interface_GetText = 'f'; {Ljava/lang/String;}
+    hook_Interface_GetTextureID = 'oc'; {I}
+    hook_Interface_GetChildren = 'Qb'; {[Lhda;}
+    hook_Interface_GetBoundsArrayIndex = 'd'; {I}
+    hook_Interface_GetHorizontalScrollBarSize = 'Kc'; {I}
+    hook_Interface_GetVerticalScrollBarSize = 'ld'; {I}
+    hook_Interface_GetHorizontalScrollBarPosition = 'Uc'; {I}
+    hook_Interface_GetHorizontalScrollBarThumbSize = 'A'; {I}
+    hook_Interface_GetVerticalScrollBarPosition = 'h'; {I}
+    hook_Interface_GetVerticalScrollBarThumbSize = 'Vc'; {I}
 
-	{Class InterfaceNode}
-		class_InterfaceNode = 'tv';
-		hook_InterfaceNode_GetID = 'k'; {I}
+  {Class InterfaceNode}
+    class_InterfaceNode = 'aha';
+    hook_InterfaceNode_GetID = 'n'; {I}
 
-	{Class SettingArray}
-		class_SettingArray = 'ud';
-		hook_SettingArray_GetData = 'n'; {[I}
+  {Class SettingArray}
+    class_SettingArray = 'qga';
+    hook_SettingArray_GetData = 'j'; {[I}
 
-	{Class SoftReference}
-		class_SoftReference = 'eea';
-		hook_SoftReference_GetReference = 'B'; {Ljava/lang/ref/SoftReference;}
+  {Class SoftReference}
+    class_SoftReference = 'wi';
+    hook_SoftReference_GetReference = 'z'; {Ljava/lang/ref/SoftReference;}
 
-	{Class HardReference}
-		class_HardReference = 'cfa';
-		hook_HardReference_GetObject = 'I'; {Ljava/lang/Object;}
+  {Class HardReference}
+    class_HardReference = 'mh';
+    hook_HardReference_GetObject = 'z'; {Ljava/lang/Object;}
 
-	{Class Ground}
-		class_Ground = 'nt';
-		hook_Ground_FloorDecoration = 'f'; {Lwha;}
-		hook_Ground_WallDecoration2 = 'v'; {Lau;}
-		hook_Ground_WallDecoration1 = 'k'; {Lau;}
-		hook_Ground_WallObject2 = 'e'; {Lqca;}
-		hook_Ground_WallObject1 = 'm'; {Lqca;}
-		hook_Ground_AnimableList = 'h'; {Lsla;}
+  {Class Ground}
+    class_Ground = 'pha';
+    hook_Ground_FloorDecoration = 'f'; {Leia;}
+    hook_Ground_WallDecoration2 = 'q'; {Ltla;}
+    hook_Ground_WallDecoration1 = 'd'; {Ltla;}
+    hook_Ground_WallObject2 = 'o'; {Lkp;}
+    hook_Ground_WallObject1 = 'n'; {Lkp;}
+    hook_Ground_AnimableList = 'a'; {Lpba;}
 
-	{Class WallObject1}
-		class_WallObject1 = 'ee';
-		hook_WallObject1_GetID = 'jb'; {S}
-		hook_WallObject1_GetModel = 'kb'; {Lka;}
-		hook_WallObject1_GetOrientation = 'G'; {B}
+  {Class FloorDecoration1}
+    class_FloorDecoration1 = 'cu';
+    hook_FloorDecoration1_GetID = 'W'; {S}
+    hook_FloorDecoration1_GetModel = 'bb'; {Lka;}
+    hook_FloorDecoration1_GetOrientation = 'F'; {B}
 
-	{Class FloorDecoration1}
-		class_FloorDecoration1 = 'qda';
-		hook_FloorDecoration1_GetID = 'ib'; {S}
-		hook_FloorDecoration1_GetModel = 'X'; {Lka;}
-		hook_FloorDecoration1_GetOrientation = 'db'; {B}
+  {Class WallObject1}
+    class_WallObject1 = 'jn';
+    hook_WallObject1_GetID = 'cb'; {S}
+    hook_WallObject1_GetModel = 'X'; {Lka;}
+    hook_WallObject1_GetOrientation = 'O'; {B}
 
-	{Class WallDecoration1}
-		class_WallDecoration1 = 'me';
-		hook_WallDecoration1_GetID = 'N'; {S}
-		hook_WallDecoration1_GetModel = 'fb'; {Lka;}
-		hook_WallDecoration1_GetOrientation = 'M'; {B}
+  {Class WallDecoration1}
+    class_WallDecoration1 = 'im';
+    hook_WallDecoration1_GetID = 'P'; {S}
+    hook_WallDecoration1_GetModel = 'M'; {Lka;}
+    hook_WallDecoration1_GetOrientation = 'ib'; {B}
 
-	{Class InteractiveObject1}
-		class_InteractiveObject1 = 'sr';
-		hook_InteractiveObject1_GetModel = 'nb'; {Lka;}
-		hook_InteractiveObject1_GetID = 'P'; {S}
-		hook_InteractiveObject1_GetOrientation = 'bb'; {B}
+  {Class InteractiveObject1}
+    class_InteractiveObject1 = 'jda';
+    hook_InteractiveObject1_GetModel = 'gb'; {Lka;}
+    hook_InteractiveObject1_GetID = 'db'; {S}
+    hook_InteractiveObject1_GetOrientation = 'cb'; {B}
 
-	{Class InteractiveObject2}
-		class_InteractiveObject2 = 'lla';
-		hook_InteractiveObject2_GetComposite = 'O'; {Lgw;}
+  {Class InteractiveObject2}
+    class_InteractiveObject2 = 'oe';
+    hook_InteractiveObject2_GetComposite = 'hb'; {Lsh;}
 
-	{Class ObjectComposite}
-		class_ObjectComposite = 'gw';
-		hook_ObjectComposite_GetType = 'h'; {I}
-		hook_ObjectComposite_GetID = 'o'; {I}
-		hook_ObjectComposite_GetModelID = 'k'; {I}
-		hook_ObjectComposite_GetOrientation = 'a'; {I}
-		hook_ObjectComposite_GetModel = 'C'; {Lka;}
+  {Class ObjectComposite}
+    class_ObjectComposite = 'sh';
+    hook_ObjectComposite_GetType = 'a'; {I}
+    hook_ObjectComposite_GetID = 'c'; {I}
+    hook_ObjectComposite_GetModelID = 'A'; {I}
+    hook_ObjectComposite_GetOrientation = 'p'; {I}
+    hook_ObjectComposite_GetModel = 'g'; {Lka;}
 
-	{Class WallDecoration2}
-		class_WallDecoration2 = 'oda';
-		hook_WallDecoration2_GetComposite = 'O'; {Lgw;}
+  {Class WallObject2}
+    class_WallObject2 = 'db';
+    hook_WallObject2_GetComposite = 'jb'; {Lsh;}
 
-	{Class FloorDecoration2}
-		class_FloorDecoration2 = 'wn';
-		hook_FloorDecoration2_GetComposite = 'fb'; {Lgw;}
+  {Class FloorDecoration2}
+    class_FloorDecoration2 = 'hp';
+    hook_FloorDecoration2_GetComposite = 'eb'; {Lsh;}
 
-	{Class WallObject2}
-		class_WallObject2 = 'vh';
-		hook_WallObject2_GetComposite = 'D'; {Lgw;}
+  {Class WallDecoration2}
+    class_WallDecoration2 = 'qg';
+    hook_WallDecoration2_GetComposite = 'bb'; {Lsh;}
 
-	{Class GroundData}
-		class_GroundData = 'tq';
-		hook_GroundData_GetCollisionFlags = 'r'; {[[I}
-		hook_GroundData_GetOffsetX = 'n'; {I}
-		hook_GroundData_GetOffsetY = 'y'; {I}
+  {Class GroundData}
+    class_GroundData = 'eq';
+    hook_GroundData_GetCollisionFlags = 'e'; {[[I}
+    hook_GroundData_GetOffsetX = 'u'; {I}
+    hook_GroundData_GetOffsetY = 'n'; {I}
 
 implementation
 

@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.Render;
+unit Render;
 
 (*
 RenderData
@@ -12,8 +12,8 @@ ranges for acceptable values, and scaling factors.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks;
+  SMART,
+  Hooks;
 
   type
     TRender = record

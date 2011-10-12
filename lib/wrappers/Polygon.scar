@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.Polygon;
+unit Polygon;
 
 interface
 

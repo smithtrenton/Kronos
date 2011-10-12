@@ -1,4 +1,4 @@
-unit kronos.lib.methods.Tiles;
+unit Tiles;
 
 (*
 Tiles
@@ -45,13 +45,13 @@ math for converting a Tile into a "minimap" coordinate is provided in TileToMM.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.core.Globals,
-    kronos.lib.methods.Methods,
-    kronos.lib.methods.Calculations,
-    kronos.lib.wrappers.RenderData,
-    kronos.lib.wrappers.Render,
+  SMART,
+  Hooks,
+  Globals,
+  Methods,
+  Calculations,
+  RenderData,
+  Render,
     Time, Types, Math;
 
   var

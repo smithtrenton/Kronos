@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.Character;
+unit Character;
 
 (*
 Character
@@ -12,14 +12,14 @@ information of both.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.core.Globals,
-    kronos.lib.wrappers.RenderableEntity,
-    kronos.lib.wrappers.Node,
-    kronos.lib.wrappers.NodeCache,
-    kronos.lib.methods.Tiles,
-    kronos.lib.methods.Calculations,
+  SMART,
+  Hooks,
+  Globals,
+  RenderableEntity,
+  Node,
+  NodeCache,
+  Tiles,
+  Calculations,
     Math, Types;
 
   type

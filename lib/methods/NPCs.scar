@@ -1,14 +1,14 @@
-unit kronos.lib.methods.NPCs;
+unit NPCs;
 
 interface
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.core.Globals,
-    kronos.lib.wrappers.NPC,
-    kronos.lib.wrappers.Character,
-    kronos.lib.methods.Methods,
-    kronos.lib.methods.Calculations,
+  SMART,
+  Hooks,
+  Globals,
+  NPC,
+  Character,
+  Methods,
+  Calculations,
     Types;
 
   function GetNPCs(Names: TStrArray): TNPCArray; overload;

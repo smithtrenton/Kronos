@@ -1,4 +1,4 @@
-unit kronos.lib.methods.Mouse;
+unit Mouse;
 
 (*
 Mouse
@@ -13,8 +13,8 @@ used for human-like mouse movements.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Globals,
+  SMART,
+  Globals,
     Math, Mouse;
 
   procedure MMouse(x, y, rx, ry: Integer); overload;

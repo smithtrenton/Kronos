@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.NodeList;
+unit NodeList;
 
 (*
 NodeList
@@ -12,10 +12,10 @@ collection of nodes.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Globals,
-    kronos.lib.core.Hooks,
-    kronos.lib.wrappers.Node;
+    SMART,
+    Globals,
+    Hooks,
+    Node;
 
   type
     TNodeList = class

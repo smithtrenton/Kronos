@@ -1,17 +1,17 @@
-unit kronos.lib.wrappers.Model;
+unit Model;
 
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.core.Globals,
-    kronos.lib.core.Paint,
-    kronos.lib.wrappers.Renderable,
-    kronos.lib.wrappers.Character,
-    kronos.lib.wrappers.Polygon,
-    kronos.lib.methods.Tiles,
-    kronos.lib.methods.Calculations,
+  SMART,
+  Hooks,
+  Globals,
+  Paint,
+  Renderable,
+  Character,
+  Polygon,
+  Tiles,
+  Calculations,
     Types, Math, VCL_Graphics;
 
   type

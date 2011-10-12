@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.RenderableEntity;
+unit RenderableEntity;
 
 (*
 RenderableEntity
@@ -12,9 +12,9 @@ grabbing the tile area of the object. Superclass of characters and objects.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Hooks,
-    kronos.lib.wrappers.Renderable,
+  SMART,
+  Hooks,
+  Renderable,
     Types;
 
   type

@@ -1,10 +1,10 @@
-unit kronos.lib.core.Paint;
+unit Paint;
 
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.wrappers.Polygon,
+  SMART,
+  Polygon,
     VCL_Graphics, Bitmaps, Types;
 
   function GetSmartCanvas: TCanvas;

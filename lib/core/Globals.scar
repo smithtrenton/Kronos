@@ -1,4 +1,4 @@
-unit kronos.lib.core.Globals;
+unit Globals;
 
 (*
 Globals

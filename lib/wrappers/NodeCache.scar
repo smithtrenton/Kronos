@@ -1,4 +1,4 @@
-unit kronos.lib.wrappers.NodeCache;
+unit NodeCache;
 
 (*
 NodeCache
@@ -11,10 +11,10 @@ Also known as RSHashTable or HashMap, the TNodeCache holds an array of nodes.
 interface
 
   uses
-    kronos.smart.SMART,
-    kronos.lib.core.Globals,
-    kronos.lib.core.Hooks,
-    kronos.lib.wrappers.Node,
+    SMART,
+    Globals,
+    Hooks,
+    Node,
     Types;
 
   type
